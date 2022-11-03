@@ -1,0 +1,49 @@
+1. Przygotuj dane
+
+function prepData()
+int n
+int [] d[n][n] 
+int [] dmin[n]
+
+begin
+	for i=0; i<n, i++
+	    for j=0; j<n; j++
+		if(i==j)
+		  d[i][j] = infinity 
+		else
+		  d[i][j] = odległość między i oraz j
+		if(d[i][j]) < d[i][dmin[j]])
+			dmin[i] = j
+end
+
+
+2. Klastrowanie
+int i1 = 0
+
+for (s=0; s<n; s++)
+// Znajdź najbliższe i najdalsze pary
+
+	for (i=0; i<n; i++)
+		if(d[i][dmin[i]] < d[i][dmin[i1])
+			i1 = i
+
+	int i2 = dmin[i1]
+	
+	// redunkcja kolumn			
+	for (j=0;j<n;j++)
+		if(d[i2][j] < d[i1][j])
+			d[i1][j] = d[j][i1] = d[i2][j]
+		d[i1][i1] = infinity
+
+	
+	for (i=0;i<n;i++)
+		d[i2][i] = d[i][i2] = infinity
+
+
+// aktualizacja tablicy o min/max
+
+	for (i=0; i<n; i++)
+		if(dmin[i] == i2) -> dmin[i] = i1
+		if(d[i1][i] < d[i1][dmin[i1]) -> dmin[i1] = i
+
+			
