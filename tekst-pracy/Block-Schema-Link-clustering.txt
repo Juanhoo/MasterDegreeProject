@@ -1,0 +1,65 @@
+SLINK
+
+* Trzeba uporządkować ten psedokod. 
+* To samo dla complete link.
+* 2022-11-10 16:30 w tym samym miejcu co zawsze
+
+1. Przygotuj dane
+
+function prepData()
+// n         // liczba punktów
+// d[n][n]   // tablica odległości między grupami (na początku są to punkty)
+// dmin[n]   // tablica minimalnych odległości od każdej grupy do sąsiedniej grupy
+
+// inicjalizacja algorytmu
+begin
+	for i ← 1 to n do 
+	    for j ← 1 to n do
+		if i = j then  
+		  d[i][j] ← ∞ ; // żeby nie łączyć mnie z samym sobą  
+		else
+		  d[i][j] ←  metryka (i, j);
+		end if;
+
+		// szukamy najbliższego mnie innego niż ja punktu
+		if d[i][j]  < d[i][dmin[j]] then 
+			dmin[i] ←  j ;
+		end if;
+	    end for;	
+	end for;	
+end
+
+
+2. Klastrowanie
+i1 ← 0; // pierwsza klaster/grupa
+
+for (s=0; s<n; s++)  // składnia fora jak wyżej
+	// Znajdź najbliższe  pary
+
+	for (i=0; i<n; i++)
+		if(d[i][dmin[i]] < d[i1][dmin[i1])
+			i1 ←  i;
+
+	int i2 = dmin[i1]  // indeks najbliższego sąsiada punktu i1, czyli odległość w parze najbliższych różnych punktów, czyli punkty o indeksach i1 i i2 są najbliższe (i1 ≠ i2)
+	
+	// redukcja kolumn i1 i i2 w kolumnę i1
+	for (j=0;j<n;j++)
+		if(d[i2][j] < d[i1][j])
+			d[i1][j] = d[j][i1] = d[i2][j]
+		d[i1][i1] = infinity
+
+	// kolumna i2 jest niepotrzebna
+	for (i=0;i<n;i++)
+		d[i2][i] = d[i][i2] = infinity
+        end for;
+
+// aktualizacja tablicy o min/max
+
+	for (i=0; i<n; i++)
+		if(dmin[i] == i2) then 
+			dmin[i] = i1
+		if(d[i1][i] < d[i1][dmin[i1]) then // <--- trzeba sprawdzić indeksy :-)
+			dmin[i1] = i;
+        end for; 
+end for;
+
