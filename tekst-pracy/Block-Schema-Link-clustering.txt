@@ -63,7 +63,7 @@ for s ← 1 to n do  // składnia fora jak wyżej
 		if dmin[i] == i2 then 
 			dmin[i] ← i1
 		end if
-		if d[i1][i] < d[i1][dmin[i1] then // <--- trzeba sprawdzić indeksy :-)
+		if d[i1][i] < d[i1][dmin[i1]] then // <--- trzeba sprawdzić indeksy :-)
 			dmin[i1] ← i;
 		end if
         end for; 
