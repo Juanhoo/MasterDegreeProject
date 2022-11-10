@@ -31,9 +31,9 @@ end
 
 
 2. Klastrowanie
-i1 ← 0; // pierwsza klaster/grupa
+i1 ← 0; // pierwszy klaster/grupa
 
-for s ← 1 to n do  // składnia fora jak wyżej
+for s ← 1 to n do  
 	// Znajdź najbliższe  pary
 
 	for i ← 1 to n do 
@@ -57,14 +57,14 @@ for s ← 1 to n do  // składnia fora jak wyżej
 		d[i2][i] ← d[i][i2] ← ∞ ;
         end for;
 
-// aktualizacja tablicy o min/max
+	// aktualizacja tablicy o min
 
 	for i ← 1 to n do 
 		if dmin[i] == i2 then 
 			dmin[i] ← i1
 		end if
-		if d[i1][i] < d[i1][dmin[i1]] then // <--- trzeba sprawdzić indeksy :-)
-			dmin[i1] ← i;
+		if d[i1][i] < d[i1][dmin[i1]] then // jeżeli i jest bliższy i1 niż najbliższy sąsiad i1, ... 
+			dmin[i1] ← i; // ..., to i jest najbliższym sąsiadem i1.
 		end if
         end for; 
 end for;
