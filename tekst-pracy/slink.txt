@@ -1,0 +1,36 @@
+// 2022-11-10
+
+SLINK
+
+// zbiór n punktów 
+
+// wyznaczamy odleglosci miedzy kazda parą 
+
+for i ← 1 to n do 
+	for j ← 1 to n do 
+		d[i][j] ← metryka(i, j);
+	end for;
+end for;
+
+while tablica d ma więcej niż 1 wiersz do
+
+	// scalanie 
+	// wyszukać najbliższe punkty a ≠ b w tablicy d
+
+	// scalanie wierszy i kolumn
+	// scalamy dla a i b,
+	// nowy wiersz (a,b) w miejsce wiersza dla a i b (i analogicznie z kolumnami)
+
+        std::unordered_map<std::string, std::unordered_map<std::string, double>> d;  // O(1)
+	d["1"]["2"] = 9.65;
+	d["1,3"]["4"] = 34.4;
+        // .erase
+
+	for i ← 1 to n do 
+		d[i][(a,b)] ← d[(a,b)][i] ← min(d[a][i], d[b][i]);  // single link;
+		d[i][(a,b)] ← d[(a,b)][i] ← max(d[a][i], d[b][i]);  // complete link link;
+	end for;
+
+	// usuniemy wiersze dla a i b, w to miejsze dodaliśmy wiersz (a,b)
+
+end while;

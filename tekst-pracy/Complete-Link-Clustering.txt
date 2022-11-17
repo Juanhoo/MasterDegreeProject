@@ -1,0 +1,71 @@
+COMPLETE LINK
+
+
+
+
+
+1. Przygotuj dane
+
+function prepData()
+// n         // liczba punktów
+// d[n][n]   // tablica odległości między grupami (na początku są to punkty)
+// dmmax[n]   // tablica minimalnych odległości od każdej grupy do sąsiedniej grupy
+
+// inicjalizacja algorytmu
+begin
+	for i ← 1 to n do 
+	    for j ← 1 to n do
+		if i = j then  
+		  d[i][j] ← ∞ ; // żeby nie łączyć mnie z samym sobą  
+		else
+		  d[i][j] ←  metryka (i, j);
+		end if;
+
+		// szukamy najbliższego mnie innego niż ja punktu
+		if d[i][j]  > d[i][dmax[j]] then 
+			dmax[i] ←  j ;
+		end if;
+	    end for;	
+	end for;	
+end
+
+
+2. Klastrowanie
+i1 ← 0; // pierwsza klaster/grupa
+
+for s ← 1 to n do  
+	// Znajdź najbliższe  pary
+
+	for i ← 1 to n do 
+		if d[i][dmax[i]] < d[i1][dmax[i1] then
+			i1 ←  i;
+		end if;
+	end for;
+
+	int i2 ← dmax[i1]  // indeks najbliższego sąsiada punktu i1, czyli odległość w parze najbliższych różnych punktów, czyli punkty o indeksach i1 i i2 są najbliższe (i1 ≠ i2)
+	
+	// redukcja kolumn i1 i i2 w kolumnę i1
+	for j ← 1 to n do 
+		if d[i2][j] > d[i1][j] then
+			d[i1][j] ← d[j][i1] ← d[i2][j]
+		end if
+		d[i1][i1] ←  0 ;
+	end for
+
+	// kolumna i2 jest niepotrzebna
+	for s ← 1 to n do 
+		d[i2][i] ← d[i][i2] ← 0 ;
+        end for;
+
+	// aktualizacja tablicy o min/max
+
+	for i ← 1 to n do 
+		if dmin[i] == i2 then 
+			dmin[i] ← i1
+		end if
+		if d[i1][i] > d[i1][dmax[i1]] then // jeżeli i jest dalszy i1 niż najbliższy sąsiad i1, ... 
+			dmin[i1] ← i; // ...., to i jest najbliższym sąsiadem i1?
+		end if
+        end for; 
+end for;
+
