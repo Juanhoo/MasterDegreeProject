@@ -47,10 +47,18 @@ int main()
             dist.insert(templateInside::value_type(name, rand() % 25));
             name += 't';
         }
-        points.insert(templateMap::value_type(zew, dist));
+        points.insert(templateMap::value_type(zew, dist)); // points[zew] = dist;
         name = "test";
         zew += 'w';
     }
+
+/*
+    for (auto & el : points)
+    {
+        el.first // klucz
+        el.second // mapowany
+    }
+*/
 
     for (templateMap::const_iterator it = points.begin(); it != points.end(); ++it) {
         for (templateInside::const_iterator iter = it->second.begin(); iter != it->second.end(); ++iter) {
