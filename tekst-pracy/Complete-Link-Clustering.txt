@@ -47,7 +47,7 @@ for s ← 1 to n do
 	// redukcja kolumn i1 i i2 w kolumnę i1
 	for j ← 1 to n do 
 		if d[i2][j] > d[i1][j] then
-			d[i1][j] ← d[j][i1] ← d[i2][j]
+	//		d[i1][j] ← d[j][i1] ← d[i2][j]
 		end if
 		d[i1][i1] ←  0 ;
 	end for

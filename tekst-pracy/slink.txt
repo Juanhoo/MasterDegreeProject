@@ -3,7 +3,7 @@
 SLINK
 
 // zbiór n punktów 
-
+// std::unordered_map<std::string, std::unordered_map<std::string, double>> d;
 // wyznaczamy odleglosci miedzy kazda parą 
 
 for i ← 1 to n do 
