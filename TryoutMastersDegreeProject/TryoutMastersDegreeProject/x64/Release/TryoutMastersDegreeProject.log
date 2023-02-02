@@ -1,0 +1,22 @@
+﻿  TryoutMastersDegreeProject.cpp
+C:\Users\piotr\Documents\GitHub\MasterDegreeProject\TryoutMastersDegreeProject\TryoutMastersDegreeProject\TryoutMastersDegreeProject.cpp(46,116): warning C4244: "argument": konwersja z "const _Ty2" do "const unsigned __int64", możliwa utrata danych
+          with
+          [
+              _Ty2=double
+          ]
+C:\Users\piotr\Documents\GitHub\MasterDegreeProject\TryoutMastersDegreeProject\TryoutMastersDegreeProject\TryoutMastersDegreeProject.cpp(48,37): warning C4244: "argument": konwersja z "const _Ty2" do "const unsigned __int64", możliwa utrata danych
+          with
+          [
+              _Ty2=double
+          ]
+C:\Users\piotr\Documents\GitHub\MasterDegreeProject\TryoutMastersDegreeProject\TryoutMastersDegreeProject\TryoutMastersDegreeProject.cpp(48,53): warning C4244: "=": konwersja z "const _Ty2" do "char", możliwa utrata danych
+          with
+          [
+              _Ty2=double
+          ]
+  Trwa generowanie kodu
+  3 of 571 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Zakończono generowanie kodu
+  TryoutMastersDegreeProject.vcxproj -> C:\Users\piotr\Documents\GitHub\MasterDegreeProject\TryoutMastersDegreeProject\x64\Release\TryoutMastersDegreeProject.exe
