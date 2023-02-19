@@ -18,5 +18,8 @@
     <ClCompile Include="TryoutMastersDegreeProject.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="KolejkaPriorytetowa.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
