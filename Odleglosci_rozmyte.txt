@@ -1,0 +1,68 @@
+Dla fa(x) i fb(x) będącym funkcjami przynależności do zbiorów A i B:
+- odległość międy nimi to pierwiastek z sumy kwadratów różnic między funkcjami przynależności dla tych zbiorów.
+
+Niech g(x) będzie różnicą między funkcjami przynależności fa i fb. 
+Funkcja g(x) będzie funkcją również trójkątną o wierzchołku (conA + conB)/2, gdzie conA to punkt koncentraci funkcji przynależności puntktu A i odpowiednio dla conB.
+
+Rónanie odległości możemy teraz przedstawić jako całkę z kwadratu funkcj g(x) od s_min do s_max z funckji przynależności A i B.
+
+d(A, B) = √∫[s_min, s_max] g(x)^2 dx
+
+
+g(x) jest funkcją różnicy między fa i fb:
+
+d(A, B) = √∫[s_min, s_max] (f_A(x) - f_B(x))^2 dx
+
+Po uproszczeniu jako równanie kwadratowe:
+
+d(A, B) = √∫[s_min, s_max] (f_A(x)^2 - 2f_A(x)f_B(x) + f_B(x)^2) dx
+
+Korzystając z faktu, że fa i fb są funkcjami trójkątnymi: ***
+
+∫[s_min, s_max] f_A(x)^2 dx = 1/3 * (s_max^3 - s_min^3 - (s_max - concentrate_A)^3 + (s_min - concentrate_A)^3)
+∫[s_min, s_max] f_B(x)^2 dx = 1/3 * (s_max^3 - s_min^3 - (s_max - concentrate_B)^3 + (s_min - concentrate_B)^3)
+
+Po podstawieniu otrzymujemy:
+d(A, B) = √[1/3 * ((s_max^3 - s_min^3) - (A_conc^2 * s_max - B_conc^2 * s_min))]
+
+Gdzie:
+A_conc = (s_max + s_min - concentrate_A)/2 
+B_conc = (s_max + s_min - concentrate_B)/2
+
+
+***
+
+funkcję przynależności możemy zdefiniować jako trójkąt o podstawie 2*(con - s_min) oraz wysokości 1 (własność funkcji gęstości)
+Więc całka z takiej funkcji może zostać zapisana jako:
+
+∫[s_min, s_max] f_A(x) dx = ∫[s_min, concentrate_A] f_A(x) dx + ∫[concentrate_A, s_max] f_A(x) dx
+
+Pierwsza część to całka klasycznego pola kwadratu: 
+
+∫[s_min, concentrate_A] f_A(x) dx = 1/2 * f_A(concentrate_A) * (concentrate_A - s_min) = 1/2 * (concentrate_A - s_min)
+
+Druga część całki to całka po trapezie o długościach s_max-concentrate i s_min -concentrate i wysokości równej 1:
+
+
+∫[concentrate_A, s_max] f_A(x) dx = 1/2 * (f_A(concentrate_A) + f_A(s_max)) * (s_max - concentrate_A)
+
+f_A(concentrate_A) = 1 i f_A(s_max) = 0
+
+
+Po podstawieniu otrzymujemy:
+
+∫[concentrate_A, s_max] f_A(x) dx = 1/2 * (s_max - concentrate_A - (s_max - concentrate_A)^2 / (concentrate_A - s_min))
+
+
+Po połączeniu całek otrzymujemy:
+
+∫[s_min, s_max] f_A(x) dx = 1/2 * (concentrate_A - s_min) + 1/2 * (s_max - concentrate_A - (s_max - concentrate_A)^2 / (concentrate_A - s_min))
+
+Upraszczając otrzymujemy funkcje 
+∫[s_min, s_max] f_A(x) dx = 1/3 * (s_max^3 - s_min^3 - (s_max - concentrate_A)^3 + (s_min - concentrate_A)^3)
+
+
+
+
+
+
