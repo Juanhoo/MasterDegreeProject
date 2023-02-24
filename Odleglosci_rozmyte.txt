@@ -4,7 +4,7 @@ Dla fa(x) i fb(x) będącym funkcjami przynależności do zbiorów A i B:
 Niech g(x) będzie różnicą między funkcjami przynależności fa i fb. 
 Funkcja g(x) będzie funkcją również trójkątną o wierzchołku (conA + conB)/2, gdzie conA to punkt koncentraci funkcji przynależności puntktu A i odpowiednio dla conB.
 
-Rónanie odległości możemy teraz przedstawić jako całkę z kwadratu funkcj g(x) od s_min do s_max z funckji przynależności A i B.
+Równanie odległości możemy teraz przedstawić jako całkę z kwadratu funkcji g(x) od s_min do s_max z funckji przynależności A i B.
 
 d(A, B) = √∫[s_min, s_max] g(x)^2 dx
 

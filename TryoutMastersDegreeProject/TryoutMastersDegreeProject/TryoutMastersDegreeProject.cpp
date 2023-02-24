@@ -118,6 +118,16 @@ class links
 {
 // using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
+/*
+struct wynik
+{
+    std::vector<std::string> l, p;
+    double odl;
+}; 
+
+std::vector<wynik>
+*/
+
 public: 
 std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const DistanceMatrix& distances) {
     std::unordered_map<std::size_t, std::vector<std::string>> clusters;
@@ -150,7 +160,7 @@ std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const Di
                 // Update the maximum distance and indices if necessary
                 if (distance > max_distance) {
                     max_distance = distance;
-                    max_i = i;
+                    max_i = i;  // clusters[max_i]
                     max_j = j;
                 }
             }
@@ -318,7 +328,5 @@ int main()
         }
     }
     
-    
-
     return 0;
 }
