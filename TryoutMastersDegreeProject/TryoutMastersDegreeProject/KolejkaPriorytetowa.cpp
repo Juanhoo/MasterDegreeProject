@@ -1,10 +1,18 @@
+
+
 #include <unordered_map>
 #include <string>
 #include <queue>
 #include <unordered_set>
+
+
 // Priority queue includes track of the minimum distance between clusters rather than iterating trough all pairs -> O(n^3) to O(n^2logn)
+
+class links_queue 
+{
 using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
+public:
 std::unordered_map<std::size_t, std::vector<std::string>> single_link(const DistanceMatrix& distances) {
     std::unordered_map<std::size_t, std::vector<std::string>> clusters;
     std::size_t cluster_id = 0;
@@ -52,9 +60,10 @@ std::unordered_map<std::size_t, std::vector<std::string>> single_link(const Dist
 }
 
     ////////////////////// Complete link 
-    using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
+// using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
-    std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, double>>&distances) {
+public:
+std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, double>>&distances) {
         std::unordered_map<std::size_t, std::vector<std::string>> clusters;
         std::size_t cluster_id = 0;
         // Initialize each point as its own cluster
@@ -98,3 +107,5 @@ std::unordered_map<std::size_t, std::vector<std::string>> single_link(const Dist
         }
         return clusters;
     }
+    
+};    
