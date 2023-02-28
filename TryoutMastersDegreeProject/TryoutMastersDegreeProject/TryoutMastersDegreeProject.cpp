@@ -10,6 +10,13 @@
 
 using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
+
+struct ClusterDiscance
+{
+    std::vector<std::string> l, p;
+    double distance;
+};
+
 // Priority queue includes track of the minimum distance between clusters rather than iterating trough all pairs -> O(n^3) to O(n^2logn)
 
 class links_queue 
@@ -17,9 +24,10 @@ class links_queue
 // using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
 public:
-std::unordered_map<std::size_t, std::vector<std::string>> single_link(const DistanceMatrix& distances) {
+std::vector<ClusterDiscance> single_link(const DistanceMatrix& distances) {
     std::unordered_map<std::size_t, std::vector<std::string>> clusters;
     std::size_t cluster_id = 0;
+    std::vector<ClusterDiscance> dendogramData;
     // Initialize each point as its own cluster
     for (const auto& point : distances) {
         clusters[cluster_id++] = std::vector<std::string>{ point.first };
@@ -44,11 +52,13 @@ std::unordered_map<std::size_t, std::vector<std::string>> single_link(const Dist
         // Find the closest pair of clusters using the priority queue
         std::size_t min_i = pq.top().first;
         std::size_t min_j = pq.top().second;
+        double min_distance = distances.at(clusters[min_i].front()).at(clusters[min_j].front());
         pq.pop();
         if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end()) {
             // One of the clusters has already been merged, skip this pair
             continue;
         }
+        dendogramData.push_back(ClusterDiscance{ clusters[min_i], clusters[min_j], min_distance });
         // Merge the two closest clusters
         clusters[min_i].insert(clusters[min_i].end(), clusters[min_j].begin(), clusters[min_j].end());
         clusters.erase(min_j);
@@ -59,7 +69,7 @@ std::unordered_map<std::size_t, std::vector<std::string>> single_link(const Dist
             }
         }
     }
-    return clusters;
+    return dendogramData;
 
 }
 
@@ -67,8 +77,9 @@ std::unordered_map<std::size_t, std::vector<std::string>> single_link(const Dist
 // using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
 public:
-std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, double>>&distances) {
+    std::vector<ClusterDiscance> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, double>>&distances) {
         std::unordered_map<std::size_t, std::vector<std::string>> clusters;
+        std::vector<ClusterDiscance> dendogramData;
         std::size_t cluster_id = 0;
         // Initialize each point as its own cluster
         for (const auto& point : distances) {
@@ -94,13 +105,15 @@ std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const st
             // Find the closest pair of clusters using the priority queue
             std::size_t min_i = pq.top().first;
             std::size_t min_j = pq.top().second;
+            double min_distance = distances.at(clusters[min_i].front()).at(clusters[min_j].front());
             pq.pop();
             if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end()) {
                 // One of the clusters has already been merged, skip this pair
                 continue;
             }
-            // Merge the two closest clusters
-            clusters[min_i].insert(clusters[min_i].end(), clusters[min_j].begin(), clusters[min_j].end());
+            dendogramData.push_back(ClusterDiscance{ clusters[min_i], clusters[min_j], min_distance });
+
+            // Merge the two closest clusters            
             clusters.erase(min_j);
             // Update the priority queue with the new distances to the merged cluster
             for (const auto& c : clusters) {
@@ -109,7 +122,7 @@ std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const st
                 }
             }
         }
-        return clusters;
+        return dendogramData;
     }
     
 }; 
@@ -118,18 +131,11 @@ class links
 {
 // using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
-/*
-struct wynik
-{
-    std::vector<std::string> l, p;
-    double odl;
-}; 
-
-std::vector<wynik>
-*/
+std::vector<ClusterDiscance> results;
 
 public: 
-std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const DistanceMatrix& distances) {
+std::vector<ClusterDiscance> complete_link(const DistanceMatrix& distances) {
+    std::vector<ClusterDiscance> dendogram_data;
     std::unordered_map<std::size_t, std::vector<std::string>> clusters;
     std::size_t cluster_id = 0;
     // Initialize each point as its own cluster
@@ -160,16 +166,19 @@ std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const Di
                 // Update the maximum distance and indices if necessary
                 if (distance > max_distance) {
                     max_distance = distance;
-                    max_i = i;  // clusters[max_i]
+                    max_i = i;  
                     max_j = j;
                 }
             }
         }
+        // Update results vector for dendogram creator 
+        dendogram_data.push_back({ clusters[max_i], clusters[max_j], max_distance });
+
         // Merge the two closest clusters
         clusters[max_i].insert(clusters[max_i].end(), clusters[max_j].begin(), clusters[max_j].end());
         clusters.erase(max_j);
     }
-    return clusters;
+    return dendogram_data;
 }
 };
 
@@ -304,8 +313,8 @@ int main()
 //         std::cout << std::endl;
 //     }
     
-        std::cout << clusters << std::endl;
-    }
+//        std::cout << clusters << std::endl;
+ //   }
     
     std::cout << "=====================" << std::endl;
     {

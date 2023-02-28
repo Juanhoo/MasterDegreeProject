@@ -4,7 +4,7 @@
 #include <string>
 #include <queue>
 #include <unordered_set>
-
+#include <math.h>
 
 // Priority queue includes track of the minimum distance between clusters rather than iterating trough all pairs -> O(n^3) to O(n^2logn)
 
@@ -109,3 +109,32 @@ std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const st
     }
     
 };    
+
+struct fuzzyVarriable {
+    float m_value;
+    float sigma_value;
+
+};
+
+fuzzyVarriable operator+(const fuzzyVarriable& first, const fuzzyVarriable& second) {
+    return fuzzyVarriable{ first.m_value + second.m_value, std::max(first.sigma_value, second.m_value) };
+}
+
+fuzzyVarriable operator-(const fuzzyVarriable& first, const fuzzyVarriable& second) {
+    return fuzzyVarriable{ first.m_value - second.m_value, std::max(first.sigma_value, second.m_value) };
+}
+
+fuzzyVarriable operator*(const fuzzyVarriable& first, const fuzzyVarriable& second) {
+    return fuzzyVarriable{ first.m_value * second.m_value, std::max(first.sigma_value, second.m_value) };
+}
+
+fuzzyVarriable operator^(const fuzzyVarriable& first, float exp) {
+    return fuzzyVarriable{ std::pow(first.m_value, exp) , first.sigma_value };
+}
+
+
+fuzzyVarriable sqrt(const fuzzyVarriable& first) {
+    return fuzzyVarriable{ std::sqrt(first.m_value) , first.sigma_value };
+}
+
+////////////////////////////////////////////////// operatory //////////////////////////////////////////////////////////////////
