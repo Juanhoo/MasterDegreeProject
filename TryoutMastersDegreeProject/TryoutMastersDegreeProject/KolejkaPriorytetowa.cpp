@@ -110,31 +110,45 @@ std::unordered_map<std::size_t, std::vector<std::string>> complete_link(const st
     
 };    
 
-struct fuzzyVarriable {
-    float m_value;
-    float sigma_value;
+struct fuzzyTriangleVarriable {
+    double m_core;
+    double m_half_support;
 
 };
 
-fuzzyVarriable operator+(const fuzzyVarriable& first, const fuzzyVarriable& second) {
-    return fuzzyVarriable{ first.m_value + second.m_value, std::max(first.sigma_value, second.m_value) };
+fuzzyTriangleVarriable operator+(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
+    return fuzzyTriangleVarriable{ first.m_core + second.m_core, std::max(first.m_half_support, second.m_core) };
 }
 
-fuzzyVarriable operator-(const fuzzyVarriable& first, const fuzzyVarriable& second) {
-    return fuzzyVarriable{ first.m_value - second.m_value, std::max(first.sigma_value, second.m_value) };
+fuzzyTriangleVarriable operator-(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
+    return fuzzyTriangleVarriable{ first.m_core - second.m_core, std::max(first.m_half_support, second.m_core) };
 }
 
-fuzzyVarriable operator*(const fuzzyVarriable& first, const fuzzyVarriable& second) {
-    return fuzzyVarriable{ first.m_value * second.m_value, std::max(first.sigma_value, second.m_value) };
+fuzzyTriangleVarriable operator*(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
+    return fuzzyTriangleVarriable{ first.m_core * second.m_core, std::max(first.m_half_support, second.m_core) };
 }
 
-fuzzyVarriable operator^(const fuzzyVarriable& first, float exp) {
-    return fuzzyVarriable{ std::pow(first.m_value, exp) , first.sigma_value };
+/*
+fuzzyTriangleVarriable operator^(const fuzzyTriangleVarriable& first, float exp) {
+    return fuzzyTriangleVarriable{ std::pow(first.m_core, exp) , first.m_half_support };
+}
+*/
+
+fuzzyTriangleVarriable square(const fuzzyTriangleVarriable& first) 
+{
+    return first * first;
 }
 
-
-fuzzyVarriable sqrt(const fuzzyVarriable& first) {
-    return fuzzyVarriable{ std::sqrt(first.m_value) , first.sigma_value };
+fuzzyTriangleVarriable sqrt(const fuzzyTriangleVarriable& first) {
+    return fuzzyTriangleVarriable{ std::sqrt(first.m_core) , first.m_half_support };
 }
+
+/*
+double is_less (const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second)
+{
+    ///@todo jeżeli w ogóle będzie potrzebne
+    return -1.0;
+}
+*/
 
 ////////////////////////////////////////////////// operatory //////////////////////////////////////////////////////////////////
