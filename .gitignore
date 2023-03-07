@@ -1,10 +1,6 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
 
-TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/FileContentIndex/1168782e-8918-4e7b-ac81-4e88b9745c0c.vsidx
-TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/FileContentIndex/ba00c9e6-ffea-4e83-bc99-c06f3561ad1d.vsidx
-*.db
-*.vsidx
-*.db-wal
-*.db-shm
-*.opendb
-*.db
-TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/v17/Browse.VC.db
+/TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/v17/Browse.VC.opendb
+/TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/v17

@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Fuzzy.cpp" />
     <ClCompile Include="KolejkaPriorytetowa.cpp" />
     <ClCompile Include="TryoutMastersDegreeProject.cpp" />
   </ItemGroup>
