@@ -8,6 +8,17 @@
 #include <sstream>
 #include <cmath>
 
+
+template <class T>
+std::ostream & operator<< (std::ostream & ss, const std::vector<T> & w)
+{
+    ss << "[ ";
+    for (const auto & n : w)
+        ss << w << " ";
+    ss << "]";
+    return ss;
+}
+
 using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
 
@@ -70,7 +81,6 @@ std::vector<ClusterDiscance> single_link(const DistanceMatrix& distances) {
         }
     }
     return dendogramData;
-
 }
 
     ////////////////////// Complete link 
@@ -290,31 +300,22 @@ std::ostream & operator<< (std::ostream & s, const DistanceMatrix & dd)
 int main() 
 {
     {
-    // Construct the distance matrix
-    DistanceMatrix distances = {
-         {"A", {{"A", 0.0}, {"B", 2.0}, {"C", 1.0}}},
-         {"B", {{"A", 2.0}, {"B", 0.0}, {"C", 4.0}}},
-         {"C", {{"A", 1.0}, {"B", 4.0}, {"C", 0.0}}},
-    };
+        // Construct the distance matrix
+        DistanceMatrix distances = {
+            {"A", {{"A", 0.0}, {"B", 2.0}, {"C", 1.0}}},
+            {"B", {{"A", 2.0}, {"B", 0.0}, {"C", 4.0}}},
+            {"C", {{"A", 1.0}, {"B", 4.0}, {"C", 0.0}}},
+        };
 
-    std::cout << distances << std::endl;
-    // Compute the complete-link clustering
-    links complete_link;
-    
-    auto clusters = complete_link.complete_link(distances);
+        std::cout << distances << std::endl;
+        // Compute the complete-link clustering
+        links complete_link;
+        
+        auto clusters = complete_link.complete_link(distances);
 
-    // Print the resulting clusters
-//     for (const auto& c : clusters) 
-//     {
-//         std::cout << "Cluster " << c.first << ": ";
-//         for (const auto& p : c.second) {
-//             std::cout << p << " ";
-//         }
-//         std::cout << std::endl;
-//     }
-    
-//        std::cout << clusters << std::endl;
- //   }
+        std::cout << clusters << std::endl;
+   
+    }
     
     std::cout << "=====================" << std::endl;
     {
