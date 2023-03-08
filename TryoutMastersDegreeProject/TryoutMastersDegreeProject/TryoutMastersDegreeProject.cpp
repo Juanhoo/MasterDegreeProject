@@ -361,9 +361,9 @@ int main()
             }
             {
                 links_queue linkage;
-                /*
-                // Odkomentowanie tego powoduje
-                // make: *** [makefile:32: release] Naruszenie ochrony pamięci (zrzut pamięci)
+                
+                // odkomentowanie tego powoduje
+                // make: *** [makefile:32: release] naruszenie ochrony pamięci (zrzut pamięci)
                 {
                     std::cout << "complete_link_queue" << "\t" << std::flush;
                     auto clusters_complete = linkage.complete_link(distances);
@@ -371,10 +371,10 @@ int main()
                     if (plik)
                         plik << clusters_complete;
                 }
-                */
-                /*
-                // Odkomentowanie tego powoduje
-                // make: *** [makefile:32: release] Naruszenie ochrony pamięci (zrzut pamięci)
+                
+                
+                // odkomentowanie tego powoduje
+                // make: *** [makefile:32: release] naruszenie ochrony pamięci (zrzut pamięci)
                 {
                     std::cout << "single_link_queue" << "\t" << std::flush;
                     auto clusters_single = linkage.single_link(distances);
@@ -382,7 +382,7 @@ int main()
                     if (plik)
                         plik << clusters_single;
                 }
-                */
+                
 
             }
             
