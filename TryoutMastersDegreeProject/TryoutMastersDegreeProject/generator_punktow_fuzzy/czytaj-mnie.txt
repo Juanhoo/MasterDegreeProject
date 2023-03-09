@@ -1,0 +1,7 @@
+
+
+Generator generuje punkty w przestrzeni trójwymiarowej. Każda współrzędna jest  opisana parą: core, half_suppert. To jest plik *.punkty.
+
+Plik *.odleglosci zawiera odległości rozmyte dwóch punktów w formacie:
+nr_pkt_i nr_pkt_j  core_odleglosci half_support_odleglosci
+
