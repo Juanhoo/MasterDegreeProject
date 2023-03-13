@@ -4,3 +4,6 @@
 
 /TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/v17/Browse.VC.opendb
 /TryoutMastersDegreeProject/.vs/TryoutMastersDegreeProject/v17
+*.vsidx
+*.vsidx
+*.db
