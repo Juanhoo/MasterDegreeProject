@@ -22,8 +22,6 @@ struct ClusterDiscance
 };
 
 
-
-
 fuzzyTriangleVarriable operator+(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
     return fuzzyTriangleVarriable{ first.m_core + second.m_core, std::max(first.m_half_support, second.m_core) };
 }
