@@ -8,12 +8,13 @@
 #include <sstream>
 #include <cmath>
 
-using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, fuzzyTriangleVarriable>>;
 
 struct fuzzyTriangleVarriable {
     double m_core;
     double m_half_support;
 };
+
+using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, fuzzyTriangleVarriable>>;
 
 struct ClusterDiscance
 {
@@ -95,7 +96,7 @@ std::vector<ClusterDiscance> complete_link(const std::unordered_map<std::string,
     return dendogramData;
 }
 
-std::vector<ClusterDiscance> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, fuzzyTriangleVarriable>>& distances) {
+std::vector<ClusterDiscance> single_link(const std::unordered_map<std::string, std::unordered_map<std::string, fuzzyTriangleVarriable>>& distances) {
     std::unordered_map<std::size_t, std::vector<std::string>> clusters;
     std::vector<ClusterDiscance> dendogramData;
     std::size_t cluster_id = 0;
