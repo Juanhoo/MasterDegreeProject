@@ -200,7 +200,7 @@ public:
                         }
                     }
                     // Update the maximum distance and indices if necessary
-                    if (distance > max_distance) {
+                    if (distance > max_distance) { // for single link switch > with <
                         max_distance = distance;
                         max_i = i;  
                         max_j = j;
@@ -362,14 +362,14 @@ int main()
             std::cout << "plik: " << nazwa << "\n" << std::flush;
             auto punkty = wczytaj(nazwa);
             auto distances = wylicz_odleglosci(punkty);
-            /*{
+            {
                 std::cout << "complete_link" << "\t" << std::flush;
                 links complete_link;
                 auto clusters_complete = complete_link.complete_link(distances);
                 std::ofstream plik (nazwa + "-complete-link.out");
                 if (plik)
                     plik << clusters_complete;
-            }*/
+            }
             {
                 links_queue linkage;
                 
