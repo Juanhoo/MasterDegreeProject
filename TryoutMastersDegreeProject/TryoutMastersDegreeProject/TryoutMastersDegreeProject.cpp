@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿
+#include <iostream>
 #include <unordered_map>
 #include <vector>
 #include <string>
@@ -385,7 +386,7 @@ int main()
                 auto clusters = complete_link.complete_link(distances);
                 std::ofstream plik(nazwa + ".out");
                 if (plik)
-                    plik << clusters;
+                    //plik << clusters;
                     plik << clusters_complete;
             }
             {
