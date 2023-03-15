@@ -1,0 +1,6 @@
+(size == 7) [ { cluster distance:
+  d(l, p) == 172.509
+  l == (size == 1) [ [6] ]
+  p == (size == 1) [ [7] ]
+}  { cluster distance:
+  d(l, p) == 9.06042e-312

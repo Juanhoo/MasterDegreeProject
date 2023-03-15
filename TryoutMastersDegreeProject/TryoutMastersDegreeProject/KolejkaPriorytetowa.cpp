@@ -108,33 +108,6 @@ public:
 
 };
 
-struct fuzzyTriangleVarriable {
-    double m_core;
-    double m_half_support;
-
-};
-
-fuzzyTriangleVarriable operator+(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
-    return fuzzyTriangleVarriable{ first.m_core + second.m_core, std::max(first.m_half_support, second.m_core) };
-}
-
-fuzzyTriangleVarriable operator-(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
-    return fuzzyTriangleVarriable{ first.m_core - second.m_core, std::max(first.m_half_support, second.m_core) };
-}
-
-fuzzyTriangleVarriable operator*(const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second) {
-    return fuzzyTriangleVarriable{ first.m_core * second.m_core, std::max(first.m_half_support, second.m_core) };
-}
-
-
-fuzzyTriangleVarriable square(const fuzzyTriangleVarriable& first)
-{
-    return first * first;
-}
-
-fuzzyTriangleVarriable sqrt(const fuzzyTriangleVarriable& first) {
-    return fuzzyTriangleVarriable{ std::sqrt(first.m_core) , first.m_half_support };
-}
 
 /*
 double is_less (const fuzzyTriangleVarriable& first, const fuzzyTriangleVarriable& second)

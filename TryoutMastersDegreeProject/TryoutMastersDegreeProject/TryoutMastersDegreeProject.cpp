@@ -130,6 +130,11 @@ public:
         // Create a priority queue to track the minimum distance between clusters
         using ClusterDistance = std::pair<std::size_t, std::size_t>;
         auto cmp = [&](const ClusterDistance& c1, const ClusterDistance& c2) {
+            if (clusters[c1.first].empty() || clusters[c1.second].empty() || clusters[c2.first].empty() || clusters[c2.second].empty()) {
+                std::cerr << "ERROR: empty\t" << c1.first << '\t' << c1.second << '\t' << c2.first << '\t' << distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) << '\t' << c2.first << '\t' << distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) << std::endl;
+                return false;
+            }
+            std::cerr << "OK:\t" << c1.first << '\t' << c1.second << '\t' << c2.first << '\t' << distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) << '\t' << c2.first << '\t' << distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) << std::endl;
             return distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) >
                 distances.at(clusters[c2.first].front()).at(clusters[c2.second].front());
         };
@@ -149,20 +154,26 @@ public:
             std::size_t min_j = pq.top().second;
             double min_distance = distances.at(clusters[min_i].front()).at(clusters[min_j].front());
             pq.pop();
-            if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end()) {
-                // One of the clusters has already been merged, skip this pair
+            if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end() ||
+                clusters[min_i].empty() || clusters[min_j].empty()) {
+                // One of the clusters has already been merged or is empty, skip this pair
                 continue;
             }
             dendogramData.push_back(ClusterDiscance{ clusters[min_i], clusters[min_j], min_distance });
+            //pq.pop();
 
             // Merge the two closest clusters            
             clusters.erase(min_j);
             // Update the priority queue with the new distances to the merged cluster
             for (const auto& c : clusters) {
+                std::cout << min_i << '\t' << c.first << '\t' << min_j << std::endl;
                 if (c.first != min_i) {
-                    pq.emplace(min_i, c.first);
-                }
+                    std::cout << min_i << '\t' << c.first << '\t' << min_j << std::endl;
+                    pq.emplace(c.first, min_i);
+                    }
+                
             }
+            
         }
         return dendogramData;
     }
@@ -206,7 +217,7 @@ public:
                         }
                     }
                     // Update the maximum distance and indices if necessary
-                    if (distance > max_distance) {
+                    if (distance > max_distance) { // for single link switch > with <
                         max_distance = distance;
                         max_i = i;
                         max_j = j;
@@ -332,29 +343,25 @@ std::ostream& operator<< (std::ostream& s, const DistanceMatrix& dd)
 int main()
 {
     {
-        // Construct the distance matrix
-        DistanceMatrix distances = {
-             {"A", {{"A", 0.0}, {"B", 2.0}, {"C", 1.0}}},
-             {"B", {{"A", 2.0}, {"B", 0.0}, {"C", 4.0}}},
-             {"C", {{"A", 1.0}, {"B", 4.0}, {"C", 0.0}}},
-        };
+ 
+        //// Construct the distance matrix
+        //DistanceMatrix distances = {
+        //    {"A", {{"A", 0.0}, {"B", 2.0}, {"C", 1.0}}},
+        //    {"B", {{"A", 2.0}, {"B", 0.0}, {"C", 4.0}}},
+        //    {"C", {{"A", 1.0}, {"B", 4.0}, {"C", 0.0}}},
+        //};
 
-        std::cout << distances << std::endl;
+        //std::cout << distances << std::endl;
+        //// Compute the complete-link clustering
+        //links complete_link;
+        //
+        //auto clusters = complete_link.complete_link(distances);
+
+        //std::cout << clusters.size() << std::endl;
+        //std::cout << clusters << std::endl;
+
         // Compute the complete-link clustering
-        links complete_link;
-
-        auto clusters = complete_link.complete_link(distances);
-
-        // Print the resulting clusters
-    //     for (const auto& c : clusters) 
-    //     {
-    //         std::cout << "Cluster " << c.first << ": ";
-    //         for (const auto& p : c.second) {
-    //             std::cout << p << " ";
-    //         }
-    //         std::cout << std::endl;
-    //     }
-
+      //  links complete_link;
     //        std::cout << clusters << std::endl;
       // }
 
@@ -367,6 +374,10 @@ int main()
             };
 
             for (const auto& nazwa : nazwy)
+        {
+            std::cout << "plik: " << nazwa << "\n" << std::flush;
+            auto punkty = wczytaj(nazwa);
+            auto distances = wylicz_odleglosci(punkty);
             {
                 auto punkty = wczytaj(nazwa);
                 auto distances = wylicz_odleglosci(punkty);
@@ -375,6 +386,31 @@ int main()
                 std::ofstream plik(nazwa + ".out");
                 if (plik)
                     plik << clusters;
+                    plik << clusters_complete;
+            }
+            {
+                links_queue linkage;
+                
+                // odkomentowanie tego powoduje
+                // make: *** [makefile:32: release] naruszenie ochrony pamięci (zrzut pamięci)
+                {
+                    std::cout << "complete_link_queue" << "\t" << std::flush;
+                    auto clusters_complete = linkage.complete_link(distances);
+                    std::ofstream plik (nazwa + "-complete-link-queue.out");
+                    if (plik)
+                        plik << clusters_complete;
+                }
+                
+                
+                // odkomentowanie tego powoduje
+                // make: *** [makefile:32: release] naruszenie ochrony pamięci (zrzut pamięci)
+                /*{
+                    std::cout << "single_link_queue" << "\t" << std::flush;
+                    auto clusters_single = linkage.single_link(distances);
+                    std::ofstream plik (nazwa + "-single-link-queue.out");
+                    if (plik)
+                        plik << clusters_single;
+                }*/
 
             }
         }
