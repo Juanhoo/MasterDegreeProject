@@ -8,6 +8,7 @@
 #include <sstream>
 #include <cmath>
 
+#define debug(x)  std::cerr << __LINE__ << " " << #x << " == " << (x) << std::endl
 
 template <class T>
 std::ostream & operator<< (std::ostream & ss, const std::vector<T> & w)
@@ -110,10 +111,40 @@ public:
         }
         // Create a priority queue to track the minimum distance between clusters
         using ClusterDistance = std::pair<std::size_t, std::size_t>;
-        auto cmp = [&](const ClusterDistance& c1, const ClusterDistance& c2) {
-            return distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) >
-                distances.at(clusters[c2.first].front()).at(clusters[c2.second].front());
+        //auto cmp = [&](const ClusterDistance& c1, const ClusterDistance& c2) {
+        //    return distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) >
+        //        distances.at(clusters[c2.first].front()).at(clusters[c2.second].front());
+        auto cmp = [&](const ClusterDistance& c1, const ClusterDistance& c2) 
+        { 
+            debug(__LINE__);
+            if (clusters[c1.first].empty() || clusters[c1.second].empty() || clusters[c2.first].empty() 
+            || clusters[c2.second].empty()) 
+            { 
+                debug(__LINE__);
+                try 
+                {
+                std::cerr << "ERROR: empty\t(" << c1.first << ", " << c1.second << ")  ("
+                                               << c2.first << ", " <<  c2.second << ")" << std::fflush;
+               // std::cerr  << distances.at(clusters[c1.first].front()).at(clusters[c1.second].front())  // nie wypisuje sie 
+               //           << std::fflush;
+               //  std::cerr   << distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) << std::endl; 
+                }
+                catch (const std::exception & w)
+                {
+                    debug(w.what());
+                }
+                return false;
+
+            }
+            debug(__LINE__);
+            std::cerr << "OK:\t" << c1.first << '\t' << c1.second << '\t' << c2.first << '\t' 
+                      << distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) << '\t' 
+                      << c2.first << '\t' << distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) 
+                      << std::endl; 
+            return distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) > distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) ;
+        
         };
+
         std::priority_queue<ClusterDistance, std::vector<ClusterDistance>, decltype(cmp)> pq(cmp);
         for (auto i_c = clusters.begin(); i_c != clusters.end(); ++i_c) {
             const std::size_t i = i_c->first;
@@ -124,27 +155,41 @@ public:
             }
         }
         // Merge clusters until there is only one left
-        while (clusters.size() > 1) {
+        while (clusters.size() > 1) 
+        {
+            debug(clusters.size());
             // Find the closest pair of clusters using the priority queue
             std::size_t min_i = pq.top().first;
             std::size_t min_j = pq.top().second;
             double min_distance = distances.at(clusters[min_i].front()).at(clusters[min_j].front());
+            debug(pq.size());
             pq.pop();
+            debug(pq.size());
             if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end()) {
                 // One of the clusters has already been merged, skip this pair
                 continue;
             }
             dendogramData.push_back(ClusterDiscance{ clusters[min_i], clusters[min_j], min_distance });
+            debug(min_i);
+            debug(min_j);
 
-            // Merge the two closest clusters            
+            // Merge the two closest clusters 
+            debug(clusters.size());           
             clusters.erase(min_j);
+            debug(clusters.size()); 
             // Update the priority queue with the new distances to the merged cluster
-            for (const auto& c : clusters) {
-                if (c.first != min_i) {
+            for (const auto& c : clusters)
+            {
+                if (c.first != min_i) 
+                {
+                    debug(__LINE__);
                     pq.emplace(min_i, c.first);
+                    debug(__LINE__);
                 }
             }
+            debug(__LINE__);
         }
+        debug(__LINE__);
         return dendogramData;
     }
     
@@ -361,7 +406,7 @@ int main()
             }
             {
                 links_queue linkage;
-                /*
+                
                 // Odkomentowanie tego powoduje
                 // make: *** [makefile:32: release] Naruszenie ochrony pamięci (zrzut pamięci)
                 {
@@ -371,7 +416,7 @@ int main()
                     if (plik)
                         plik << clusters_complete;
                 }
-                */
+                
                 /*
                 // Odkomentowanie tego powoduje
                 // make: *** [makefile:32: release] Naruszenie ochrony pamięci (zrzut pamięci)
