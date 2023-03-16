@@ -100,7 +100,7 @@ class links_queue
 // using DistanceMatrix = std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
 public:
-    std::vector<ClusterDiscance> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, double>>&distances) {
+    std::vector<ClusterDiscance> complete_link(const std::unordered_map<std::string, std::unordered_map<std::string, double>>& distances) {
         std::unordered_map<std::size_t, std::vector<std::string>> clusters;
         std::vector<ClusterDiscance> dendogramData;
         std::size_t cluster_id = 0;
@@ -111,6 +111,11 @@ public:
         // Create a priority queue to track the minimum distance between clusters
         using ClusterDistance = std::pair<std::size_t, std::size_t>;
         auto cmp = [&](const ClusterDistance& c1, const ClusterDistance& c2) {
+            if (clusters[c1.first].empty() || clusters[c1.second].empty() || clusters[c2.first].empty() || clusters[c2.second].empty()) {
+                std::cerr << "ERROR: empty\t" << c1.first << '\t' << c1.second << '\t' << c2.first << '\t' << distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) << '\t' << c2.first << '\t' << distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) << std::endl;
+                return false;
+            }
+            std::cerr << "OK:\t" << c1.first << '\t' << c1.second << '\t' << c2.first << '\t' << distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) << '\t' << c2.first << '\t' << distances.at(clusters[c2.first].front()).at(clusters[c2.second].front()) << std::endl;
             return distances.at(clusters[c1.first].front()).at(clusters[c1.second].front()) >
                 distances.at(clusters[c2.first].front()).at(clusters[c2.second].front());
         };
@@ -130,20 +135,26 @@ public:
             std::size_t min_j = pq.top().second;
             double min_distance = distances.at(clusters[min_i].front()).at(clusters[min_j].front());
             pq.pop();
-            if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end()) {
-                // One of the clusters has already been merged, skip this pair
+            if (clusters.find(min_i) == clusters.end() || clusters.find(min_j) == clusters.end() ||
+                clusters[min_i].empty() || clusters[min_j].empty()) {
+                // One of the clusters has already been merged or is empty, skip this pair
                 continue;
             }
             dendogramData.push_back(ClusterDiscance{ clusters[min_i], clusters[min_j], min_distance });
+            //pq.pop();
 
             // Merge the two closest clusters            
             clusters.erase(min_j);
             // Update the priority queue with the new distances to the merged cluster
             for (const auto& c : clusters) {
+                std::cout << min_i << '\t' << c.first << '\t' << min_j << std::endl;
                 if (c.first != min_i) {
-                    pq.emplace(min_i, c.first);
+                    std::cout << min_i << '\t' << c.first << '\t' << min_j << std::endl;
+                    pq.emplace(c.first, min_i);
                 }
+
             }
+
         }
         return dendogramData;
     }
@@ -360,7 +371,7 @@ int main()
                     plik << clusters_complete;
             }
             {
-                links_queue linkage;
+                //links_queue linkage;
                 /*
                 // Odkomentowanie tego powoduje
                 // make: *** [makefile:32: release] Naruszenie ochrony pamięci (zrzut pamięci)
