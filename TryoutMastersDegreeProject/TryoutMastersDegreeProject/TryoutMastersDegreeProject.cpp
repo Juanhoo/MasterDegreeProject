@@ -246,6 +246,21 @@ public:
             // Merge the two closest clusters
             clusters[max_i].insert(clusters[max_i].end(), clusters[max_j].begin(), clusters[max_j].end());
             clusters.erase(max_j);
+
+            // Remove elements from the priority queue that contain the reduced cluster
+            std::priority_queue<std::tuple<double, std::size_t, std::size_t>> new_pq;
+            while (!pq.empty()) {
+                double distance;
+                std::size_t i, j;
+                std::tie(distance, i, j) = pq.top();
+                pq.pop();
+                if (clusters.count(i) == 0 || clusters.count(j) == 0) {
+                    continue; // skip elements that contain a reduced cluster
+                }
+                new_pq.push(std::make_tuple(distance, i, j));
+            }
+            pq = std::move(new_pq);
+
             // Update the priority queue
             for (const auto& i_c : clusters) {
                 const std::size_t i = i_c.first;
