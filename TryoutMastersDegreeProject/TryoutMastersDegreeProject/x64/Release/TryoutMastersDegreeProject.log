@@ -1,8 +1,6 @@
-﻿  Fuzzy.cpp
-  KolejkaPriorytetowa.cpp
-  TryoutMastersDegreeProject.cpp
+﻿  TryoutMastersDegreeProject.cpp
   Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 1151 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Compiler switch has changed, fall back to full compilation.
+  All 1218 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   TryoutMastersDegreeProject.vcxproj -> C:\Users\piotr\Documents\GitHub\MasterDegreeProject\TryoutMastersDegreeProject\x64\Release\TryoutMastersDegreeProject.exe
