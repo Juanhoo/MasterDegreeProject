@@ -1,6 +1,6 @@
 ﻿  TryoutMastersDegreeProject.cpp
   Generating code
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  Compiler switch has changed, fall back to full compilation.
   All 1218 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   TryoutMastersDegreeProject.vcxproj -> C:\Users\piotr\Documents\GitHub\MasterDegreeProject\TryoutMastersDegreeProject\x64\Release\TryoutMastersDegreeProject.exe
